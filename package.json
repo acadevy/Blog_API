@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,13 @@
   },
   "homepage": "https://github.com/acadevy/Blog_API.git~#readme",
   "dependencies": {
-    "mongoose": "^6.4.3"
+    "chalk": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-sanitizer": "^1.0.6",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.4.3",
+    "validator": "^13.7.0"
   }
 }

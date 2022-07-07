@@ -1,20 +1,30 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const validator = requiore("validator");
 
 const userSchema = new mongoose.Schema({
   name: {
     required: true,
-    type: String
+    type: String,
+    trim:true
   },
   email: {
     required: true,
     type: String,
-    unique: true
+    unique: true,
+    trim:true,
+    lowercase: true,
+    validate(value){
+        if(!validator.isEmail(value)){
+            throw new Error('Email is not valid');
+        }
+    }
   },
   username: {
     required: true,
     type: String,
-    unique: true
+    unique: true,
+    trim: true
   },
   password: {
     required: true,
@@ -29,6 +39,7 @@ const userSchema = new mongoose.Schema({
     }
   ],
 }, { timestamps: true });
+
 
 // create middleware for encrypting the password
 userSchema.pre('save', async function (next) {
