@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
-const chalk = require("chalk");
+const {log} = console;
 
-mongoose.connect(DATABASE_URI, { useNewUrlParser: true, useCreateIndex: true })
+const DATABASE_URI = process.env.DATABASE_URI;
+
+mongoose.connect(DATABASE_URI, { useNewUrlParser: true})
   .then(() => {
-    log(`${chalk.bgMagenta('connected to database')}`)
+    log(('connected to database'))
   })
   .catch((err) => {
-    log(`${chalk.red(err)}`)
+    log((err))
   });
-
 
 module.exports = {
   mongoose
