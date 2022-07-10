@@ -18,7 +18,7 @@ env.config();
 /* global variables */
 const { log } = console;
 const PORT = process.env.PORT;
-const DATABASE_URI = process.env.DATABASE_URI;
+
 
 require("./db/mongoose");
 
@@ -35,7 +35,7 @@ app.use(expressSanitizer());
 app.use(methodOverride('_method'));
 
 // /** Routes */
-// // app.use('/api/users', userRouter);
+app.use('/api/users', userRouter);
 // // app.use('/api/posts', postRouter);
 // // app.use('/api/media', mediaRouter);
 // // app.use('/api/posts/:id/comments', commentRouter);
