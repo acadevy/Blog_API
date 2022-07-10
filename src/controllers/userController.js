@@ -53,8 +53,41 @@ const log_out_all_users = async(req,res) =>{
   }
 }
 
+const get_a_user = async(req,res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).send('User not found!');
+    }
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+
+const update_user = async(req,res)=>{
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ['name', 'email', 'username','password'];
+  const isValidOperation = updates.every(update =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: 'Invalid updates!' });
+  }
+
+  try {
+    updates.forEach(update => (req.user[update] = req.body[update]));
+    await req.user.save();
+    res.status(200).send(req.user);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+
+}
 
 
 module.exports = {
-create_user,login_user,log_out_user,log_out_all_users
+create_user,login_user,log_out_user,log_out_all_users,get_a_user,update_user
 }

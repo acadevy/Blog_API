@@ -86,12 +86,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
 };
 
 
-// Delete user tasks when user is removed
-userSchema.pre('remove', async function(next) {
-  await Task.deleteMany({ owner: this._id });
-  next();
-});
-
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
