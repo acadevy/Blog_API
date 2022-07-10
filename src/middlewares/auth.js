@@ -1,7 +1,7 @@
 const jtw = require('jsonwebtoken');
 const User = require('../models/User');
 
-exports.auth = async (req, res, next) => {
+const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace(/^Bearer\s/, '');
     const decode = jtw.verify(token, process.env.JWT_SECRET);
@@ -19,3 +19,5 @@ exports.auth = async (req, res, next) => {
     return res.status(401).json({ error: 'Not authorized' });
   }
 }
+
+module.exports = auth;

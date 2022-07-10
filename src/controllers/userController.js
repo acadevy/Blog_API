@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-exports.create_user = async (req,res) => {
+const create_user = async (req,res) => {
     const user = new User(req.body);
     try {
       await user.save();
@@ -12,7 +12,7 @@ exports.create_user = async (req,res) => {
 }
 
 
-exports.login_user = async (req,res) => {
+const login_user = async (req,res) => {
   try {
     const user = await User.findByCredentials(
       req.body.email,
@@ -27,7 +27,7 @@ exports.login_user = async (req,res) => {
 
 
 
-exports.log_out_user = async (req,res) => {
+const log_out_user = async (req,res) => {
   
   try {
     req.user.tokens = req.user.tokens.filter(
@@ -42,5 +42,19 @@ exports.log_out_user = async (req,res) => {
   
 }
 
+const log_out_all_users = async(req,res) =>{
+  try {
+    req.user.tokens = [];
+    await req.user.save();
+
+    res.status(200).send('User logged out from all sessions!');
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
 
 
+
+module.exports = {
+create_user,login_user,log_out_user,log_out_all_users
+}
