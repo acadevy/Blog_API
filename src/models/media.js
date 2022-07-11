@@ -5,6 +5,10 @@ const mediaSchema = new mongoose.Schema({
   slug: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: true });
 
