@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const mongoose = require('mongoose');
 
 async function getSinglePost(req, res, next) {
   const { id } = req.params;
@@ -9,11 +10,12 @@ async function getSinglePost(req, res, next) {
     if(post === null) {
       return res.status(404).json({message: 'post doesn\'t exist'});
     }
+    res.post = post;
+    next();
   } catch(err) {
     res.status(500).json({message: err.message});
   }
-  res.post = post;
-  next();
+  
 }
 
 function getSingleComment(req, res, next) {
